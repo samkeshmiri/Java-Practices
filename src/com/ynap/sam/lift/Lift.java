@@ -1,27 +1,23 @@
 package com.ynap.sam.lift;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Lift {
 	public static void main(String[] args) {
-		StringBuilder input = new StringBuilder();
 		try(Scanner scanner = new Scanner(System.in)) {
-				System.out.println(scanner.next());
-				input.append(scanner.next());
+			String input = scanner.nextLine();
+			System.out.println(useLift(input));
 		}
-		System.out.println(useLift(input.toString()));
-		System.out.println(useLift("7 down 1 3 5 7 12"));	// expected "down" 7 5 3 1 12
-		System.out.println(useLift("4 up 2 4 5 7 12"));	// expected "up" 4 5 7 12 2 
-		System.out.println(useLift("7 up 12 10 11 9 8 7 6 5 4 3 2 1")); // 7 8 9 10 11 12 6 5 4 3 2 1
 	}
 
 	public static String useLift(String input) {
-		String[] arr = input.split(",", -1);
+		String[] arr = input.split(" ", -1);
 		StringBuilder result = new StringBuilder();
-		ArrayList<Integer> floors = new ArrayList<>();
+		List<Integer> floors = new LinkedList<>();
 		Integer currentFloor = Integer.parseInt(arr[0]);
 		String direction = arr[1];
 
@@ -40,7 +36,7 @@ public class Lift {
 					}
 				}
 			});
-		} else {	
+		} else {
 			Collections.sort(floors);
 			Collections.sort(floors, new Comparator<Integer>() {
 				public int compare(Integer o1, Integer o2) {
@@ -50,13 +46,13 @@ public class Lift {
 						return 0;
 					}
 				}
-			});		
+			});
 		}
-		
+
 		for (Integer x : floors) {
 			result.append(x.toString() + " ");
 		}
-		
+
 		return result.toString();
 	}
 }
