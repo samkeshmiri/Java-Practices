@@ -26,33 +26,41 @@ public class Lift {
 		}
 
 		if (direction.equals("down")) {
-			Collections.sort(floors, Collections.reverseOrder());
-			Collections.sort(floors, new Comparator<Integer>() {
-				public int compare(Integer o1, Integer o2) {
-					if (o1 > currentFloor || o2 > currentFloor) {
-						return -1;
-					} else {
-						return 0;
-					}
-				}
-			});
+			goDown(floors, currentFloor);
 		} else {
-			Collections.sort(floors);
-			Collections.sort(floors, new Comparator<Integer>() {
-				public int compare(Integer o1, Integer o2) {
-					if (o1 < currentFloor || o2 < currentFloor) {
-						return -1;
-					} else {
-						return 0;
-					}
-				}
-			});
+			goUp(floors, currentFloor);
 		}
 
-		for (Integer x : floors) {
-			result.append(x.toString() + " ");
+		for (Integer floor : floors) {
+			result.append(floor.toString() + " ");
 		}
 
 		return result.toString();
+	}
+
+	private static void goUp(List<Integer> floors, Integer currentFloor) {
+		Collections.sort(floors);
+		Collections.sort(floors, new Comparator<Integer>() {
+			public int compare(Integer o1, Integer o2) {
+				if (o1 < currentFloor || o2 < currentFloor) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
+	}
+
+	private static void goDown(List<Integer> floors, Integer currentFloor) {
+		Collections.sort(floors, Collections.reverseOrder());
+		Collections.sort(floors, new Comparator<Integer>() {
+			public int compare(Integer o1, Integer o2) {
+				if (o1 > currentFloor || o2 > currentFloor) {
+					return -1;
+				} else {
+					return 0;
+				}
+			}
+		});
 	}
 }
